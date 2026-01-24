@@ -1,6 +1,5 @@
 title: Find the teahouse  
 subtitle: On the way to the Teahouse  
-new-page: true 
 on-arrival: poly-what = 1
 on-departure: poly-what = 0
 

@@ -35,7 +35,7 @@ Facilyn: That’s the city for you. It hides its good corners.
 - #what_up_to
 
 @what_up_to
-title: So, what have you been up to?
+title: Ask what she has been up to
 tags: what_up_to
 
 Me: So, what have you been up to?
@@ -68,7 +68,7 @@ Facilyn: Sure, but we didn't set out to create the polycrisis. It happens while 
 
 She picks up the plastic packaging from her teabag.
 
-Facilyn: Someone invented this packaging to preserve the tea's aroma. Good intention and very useful. But they didn't take into account what happens to billions of plastic packages, how they interact with ocean systems or how microplastics affects human and animal health.
+Facilyn: Someone invented this packaging to preserve the tea's aroma. Good intention and very useful. But they didn't take into account what happens to billions of plastic packages, how they interact with ocean systems or how microplastics affect human and animal health.
 
 Facilyn: We make thousands of management decisions, but we fail to look at the whole picture.
 
@@ -108,7 +108,7 @@ Complicated things have many parts, but they're predictable. Like the hardware o
 Facilyn: With complex systems, it’s a whole different story. We all know what happened to AI, once it developed full consciousness. When it became a living system.
 
 - @ai_what_happened
-- @ai_i_know: Yes, we remember that one.
+- @ai_i_know
 
 @ai_what_happened
 title: No, what happened?
@@ -125,7 +125,10 @@ Facilyn: Anyway...
 
 Facilyn: Living systems don't function in parts and connections, but in wholes and patterns. 
 
+- #how_complexity
+
 @ai_i_know
+title: Yes, we remember that one
 
 Me: Yes, we all remember that one.
 
