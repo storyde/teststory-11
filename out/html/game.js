@@ -23,15 +23,28 @@
     // Load saved theme
     loadTheme();
     
-    // Initialize scroll effects
-    initializeScrollEffects();
+    // Listen for system theme changes
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('game-theme')) {
+          // Only auto-switch if user hasn't manually set a preference
+          loadTheme();
+        }
+      });
+    }
+    
+    // Initialize accessibility features
+    initializeAccessibility();
+    
+    // Initialize touch gestures
+    initializeTouchGestures();
   };
 
   function initializeInterface() {
     // Initialize sidebar toggles
     document.getElementById('progress-toggle').addEventListener('click', toggleProgressSidebar);
     document.getElementById('info-toggle').addEventListener('click', toggleInfoSidebar);
-    document.getElementById('sidebar-theme-toggle').addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
     // Initialize sidebar overlay
     var overlay = document.getElementById('sidebar-overlay');
@@ -39,62 +52,54 @@
 
     // Handle window resize
     window.addEventListener('resize', handleResize);
-    
+
     // Initialize keyboard navigation
     initializeKeyboardNavigation();
-    
-    // Initialize touch gestures for mobile
-    initializeTouchGestures();
-    
+
     // Handle initial responsive state
     handleResize();
-    
+
     // Create loading indicator
     createLoadingIndicator();
-    
+
     // Add scroll behavior for smooth chat scrolling
     var chatContainer = document.getElementById('chat-container');
     if (chatContainer) {
       chatContainer.style.scrollBehavior = 'smooth';
     }
-    
+
     // Add choice selection feedback
     addChoiceSelectionFeedback();
-    
-    // Wrap choices in container for max-width
-    wrapChoicesContainer();
   }
-  
-  function wrapChoicesContainer() {
-    var choicesContainer = document.querySelector('.choices-container');
-    if (choicesContainer) {
-      var wrapper = document.createElement('div');
-      wrapper.className = 'choices-wrapper';
-      
-      // Move all children to wrapper
-      while (choicesContainer.firstChild) {
-        wrapper.appendChild(choicesContainer.firstChild);
+
+  function initializeAccessibility() {
+    // Add ARIA landmarks
+    setTimeout(function() {
+      var chatMain = document.querySelector('.chat-main');
+      if (chatMain) {
+        chatMain.setAttribute('role', 'main');
+        chatMain.setAttribute('aria-label', 'Game Content');
       }
       
-      choicesContainer.appendChild(wrapper);
-    }
-  }
-  
-  function initializeScrollEffects() {
-    var header = document.querySelector('.sticky-header');
-    var lastScrollTop = 0;
-    
-    window.addEventListener('scroll', function() {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
-      if (scrollTop > 10) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
+      var progressSidebar = document.getElementById('progress-sidebar');
+      if (progressSidebar) {
+        progressSidebar.setAttribute('role', 'complementary');
+        progressSidebar.setAttribute('aria-label', 'Game Progress');
       }
       
-      lastScrollTop = scrollTop;
-    }, { passive: true });
+      var infoSidebar = document.getElementById('info-sidebar');
+      if (infoSidebar) {
+        infoSidebar.setAttribute('role', 'complementary');
+        infoSidebar.setAttribute('aria-label', 'Game Information');
+      }
+      
+      var header = document.querySelector('.top-header');
+      if (header) {
+        header.setAttribute('role', 'banner');
+      }
+      
+      updateChoiceAccessibility();
+    }, 500);
   }
 
   function createLoadingIndicator() {
@@ -133,9 +138,124 @@
     });
   }
 
+  function initializeTouchGestures() {
+    // Touch gesture variables
+    var startX = 0;
+    var startY = 0;
+    var currentX = 0;
+    var currentY = 0;
+    var isSwiping = false;
+    
+    // Configuration
+    var swipeThreshold = 50; // Minimum distance for a swipe
+    var edgeThreshold = 30; // Distance from edge to trigger open gesture
+    var velocityThreshold = 0.3; // Minimum velocity for gesture recognition
+    var startTime = 0;
+    
+    // Only enable touch gestures on mobile devices
+    function isMobileDevice() {
+      return window.innerWidth <= 768 && 'ontouchstart' in window;
+    }
+    
+    function handleTouchStart(e) {
+      if (!isMobileDevice()) return;
+      
+      var touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      currentX = startX;
+      currentY = startY;
+      isSwiping = true;
+      startTime = Date.now();
+      
+      // Prevent default only if starting near edges to avoid interfering with scrolling
+      if (startX <= edgeThreshold || startX >= window.innerWidth - edgeThreshold) {
+        e.preventDefault();
+      }
+    }
+    
+    function handleTouchMove(e) {
+      if (!isSwiping || !isMobileDevice()) return;
+      
+      var touch = e.touches[0];
+      currentX = touch.clientX;
+      currentY = touch.clientY;
+      
+      var diffX = Math.abs(currentX - startX);
+      var diffY = Math.abs(currentY - startY);
+      
+      // If horizontal movement is greater than vertical, prevent default scrolling
+      if (diffX > diffY && diffX > 10) {
+        e.preventDefault();
+      }
+    }
+    
+    function handleTouchEnd(e) {
+      if (!isSwiping || !isMobileDevice()) return;
+      
+      var endTime = Date.now();
+      var timeDiff = endTime - startTime;
+      var diffX = currentX - startX;
+      var diffY = currentY - startY;
+      var absDiffX = Math.abs(diffX);
+      var absDiffY = Math.abs(diffY);
+      var velocity = absDiffX / timeDiff;
+      
+      // Reset swiping state
+      isSwiping = false;
+      
+      // Check if this is a horizontal swipe (more horizontal than vertical movement)
+      if (absDiffX > absDiffY && (absDiffX > swipeThreshold || velocity > velocityThreshold)) {
+        var progressSidebar = document.getElementById('progress-sidebar');
+        var infoSidebar = document.getElementById('info-sidebar');
+        var isProgressOpen = progressSidebar.classList.contains('active');
+        var isInfoOpen = infoSidebar.classList.contains('active');
+        
+        // Swipe right (positive diffX)
+        if (diffX > 0) {
+          // Open left sidebar if starting from left edge and no sidebar is open
+          if (startX <= edgeThreshold && !isProgressOpen && !isInfoOpen) {
+            toggleProgressSidebar();
+            showNotification('Progress panel opened', 'info');
+          }
+          // Close right sidebar if it's open
+          else if (isInfoOpen) {
+            closeSidebars();
+            showNotification('Info panel closed', 'info');
+          }
+        }
+        // Swipe left (negative diffX)
+        else if (diffX < 0) {
+          // Open right sidebar if starting from right edge and no sidebar is open
+          if (startX >= window.innerWidth - edgeThreshold && !isProgressOpen && !isInfoOpen) {
+            toggleInfoSidebar();
+            showNotification('Info panel opened', 'info');
+          }
+          // Close left sidebar if it's open
+          else if (isProgressOpen) {
+            closeSidebars();
+            showNotification('Progress panel closed', 'info');
+          }
+        }
+      }
+    }
+    
+    // Add event listeners
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd, { passive: true });
+    
+    // Clean up function (for potential future use)
+    window.removeTouchGestures = function() {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }
+
   function initializeKeyboardNavigation() {
     // Add keyboard support for header buttons
-    var headerButtons = document.querySelectorAll('.header-btn');
+    var headerButtons = document.querySelectorAll('.header-btn, .sidebar-header-btn, .sidebar-close');
     headerButtons.forEach(function(button) {
       button.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -143,8 +263,6 @@
           button.click();
         }
       });
-      
-      // ARIA labels are already defined in HTML
     });
 
     // Add escape key to close sidebars
@@ -176,11 +294,6 @@
         
         choices[nextIndex].focus();
       }
-    });
-    
-    // Make choices focusable
-    document.addEventListener('DOMContentLoaded', function() {
-      updateChoiceAccessibility();
     });
   }
 
@@ -224,99 +337,20 @@
     }
   }
 
-  function initializeTouchGestures() {
-    var startX = 0;
-    var startY = 0;
-    var currentX = 0;
-    var currentY = 0;
-    var isDragging = false;
-    var activeElement = null;
-    
-    function handleTouchStart(e) {
-      if (window.innerWidth > 768) return; // Only on mobile
-      
-      var touch = e.touches[0];
-      startX = touch.clientX;
-      startY = touch.clientY;
-      currentX = startX;
-      currentY = startY;
-      
-      // Check if touch started on a sidebar
-      var progressSidebar = document.getElementById('progress-sidebar');
-      var infoSidebar = document.getElementById('info-sidebar');
-      
-      if (progressSidebar.classList.contains('active') && startX < 260) {
-        activeElement = progressSidebar;
-        isDragging = true;
-      } else if (infoSidebar.classList.contains('active') && startX > window.innerWidth - 260) {
-        activeElement = infoSidebar;
-        isDragging = true;
-      }
-    }
-    
-    function handleTouchMove(e) {
-      if (!isDragging || !activeElement) return;
-      
-      e.preventDefault();
-      var touch = e.touches[0];
-      currentX = touch.clientX;
-      currentY = touch.clientY;
-      
-      var deltaX = currentX - startX;
-      var deltaY = Math.abs(currentY - startY);
-      
-      // Only process horizontal swipes
-      if (deltaY > 50) {
-        isDragging = false;
-        return;
-      }
-      
-      // Apply transform based on swipe direction
-      if (activeElement.id === 'progress-sidebar' && deltaX < -50) {
-        activeElement.style.transform = 'translateX(' + Math.min(0, deltaX) + 'px)';
-      } else if (activeElement.id === 'info-sidebar' && deltaX > 50) {
-        activeElement.style.transform = 'translateX(' + Math.max(0, deltaX) + 'px)';
-      }
-    }
-    
-    function handleTouchEnd(e) {
-      if (!isDragging || !activeElement) return;
-      
-      var deltaX = currentX - startX;
-      var threshold = 100;
-      
-      // Reset transform
-      activeElement.style.transform = '';
-      
-      // Close sidebar if swiped far enough
-      if ((activeElement.id === 'progress-sidebar' && deltaX < -threshold) ||
-          (activeElement.id === 'info-sidebar' && deltaX > threshold)) {
-        closeSidebars();
-      }
-      
-      isDragging = false;
-      activeElement = null;
-    }
-    
-    // Add touch event listeners
-    document.addEventListener('touchstart', handleTouchStart, { passive: false });
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchend', handleTouchEnd, { passive: true });
-  }
-
   function toggleProgressSidebar() {
     var sidebar = document.getElementById('progress-sidebar');
     var overlay = document.getElementById('sidebar-overlay');
     var chatMain = document.querySelector('.chat-main');
     var isMobile = window.innerWidth <= 768;
-    
+
     if (isMobile) {
       var isActive = sidebar.classList.contains('active');
       closeSidebars(); // Close any open sidebars first
-      
+
       if (!isActive) {
         sidebar.classList.add('active');
         overlay.classList.add('active');
+        overlay.classList.add('left-open');
       }
     } else {
       sidebar.classList.toggle('hidden');
@@ -333,14 +367,15 @@
     var overlay = document.getElementById('sidebar-overlay');
     var chatMain = document.querySelector('.chat-main');
     var isMobile = window.innerWidth <= 768;
-    
+
     if (isMobile) {
       var isActive = sidebar.classList.contains('active');
       closeSidebars(); // Close any open sidebars first
-      
+
       if (!isActive) {
         sidebar.classList.add('active');
         overlay.classList.add('active');
+        overlay.classList.add('right-open');
       }
     } else {
       sidebar.classList.toggle('hidden');
@@ -356,55 +391,74 @@
     var progressSidebar = document.getElementById('progress-sidebar');
     var infoSidebar = document.getElementById('info-sidebar');
     var overlay = document.getElementById('sidebar-overlay');
-    
+
     progressSidebar.classList.remove('active');
     infoSidebar.classList.remove('active');
-    overlay.classList.remove('active');
+    overlay.classList.remove('active', 'left-open', 'right-open');
   }
 
   function toggleTheme() {
     var body = document.body;
-    var sidebarThemeIcon = document.querySelector('#sidebar-theme-toggle span');
+    var themeButton = document.getElementById('theme-toggle');
     
-    if (body.classList.contains('theme-light')) {
+    // Add smooth transition class
+    body.style.transition = 'background 0.3s ease, color 0.3s ease';
+    
+    if (currentTheme === 'light') {
       body.classList.remove('theme-light');
       body.classList.add('theme-dark');
-      if (sidebarThemeIcon) {
-        sidebarThemeIcon.setAttribute('uk-icon', 'icon: bolt');
-      }
+      updateThemeIcon(themeButton, 'sun');
       currentTheme = 'dark';
+      localStorage.setItem('game-theme', 'dark');
     } else {
       body.classList.remove('theme-dark');
       body.classList.add('theme-light');
-      if (sidebarThemeIcon) {
-        sidebarThemeIcon.setAttribute('uk-icon', 'icon: star');
-      }
+      updateThemeIcon(themeButton, 'moon');
       currentTheme = 'light';
+      localStorage.setItem('game-theme', 'light');
     }
     
-    // Save theme preference
-    localStorage.setItem('game-theme', currentTheme);
+    // Remove transition after animation
+    setTimeout(() => {
+      body.style.transition = '';
+    }, 300);
   }
 
   function loadTheme() {
-    var savedTheme = localStorage.getItem('game-theme') || 'light';
-    var body = document.body;
-    var sidebarThemeIconElement = document.querySelector('#sidebar-theme-toggle span');
+    // Check for saved theme preference or default to system preference
+    var savedTheme = localStorage.getItem('game-theme');
+    var systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
     
-    if (savedTheme === 'dark') {
+    var body = document.body;
+    var themeButton = document.getElementById('theme-toggle');
+    
+    if (theme === 'dark') {
       body.classList.remove('theme-light');
       body.classList.add('theme-dark');
-      if (sidebarThemeIconElement) {
-        sidebarThemeIconElement.setAttribute('uk-icon', 'icon: bolt');
-      }
+      updateThemeIcon(themeButton, 'sun');
       currentTheme = 'dark';
     } else {
       body.classList.remove('theme-dark');
       body.classList.add('theme-light');
-      if (sidebarThemeIconElement) {
-        sidebarThemeIconElement.setAttribute('uk-icon', 'icon: star');
-      }
+      updateThemeIcon(themeButton, 'moon');
       currentTheme = 'light';
+    }
+  }
+
+  // Production-ready icon update function
+  function updateThemeIcon(button, iconName) {
+    if (!button) return;
+    
+    // Clear all existing content and create new icon element
+    button.innerHTML = '';
+    var newIcon = document.createElement('i');
+    newIcon.setAttribute('data-lucide', iconName);
+    button.appendChild(newIcon);
+    
+    // Initialize the new icon
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+      lucide.createIcons();
     }
   }
 
@@ -413,33 +467,43 @@
   window.displayText = function(text) {
     const mapping = {
       'Me: ':          'me',
-      'Facilitator: ': 'cfa',
-      'Librarian: ':   'cli',
-      'Archivist: ':   'car',
-      'Scholar: ':     'csc',
-      'Historian: ':   'chi',
-      'Curator: ':     'ccu',
+      'Facilyn: ':     'cfa',
+      'Vendor: ':      'cve',
+      'Stranger: ':    'cst',
+      'Drawer: ':      'cdr',
+      'Headline1: ':   'ch1',
+      'Headline2: ':   'ch2',
+      'Headline3: ':   'ch3',
       'Narration: ':   'na'
     };
 
     // Character profile images from Unsplash
     const profileImages = {
       'cfa': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
-      'cli': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
-      'car': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-      'csc': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
-      'chi': 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
-      'ccu': 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=100&h=100&fit=crop&crop=face'
+      'cve': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+      'cst': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
+      'cdr': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
+      'ch1': 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+      'ch2': 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=100&h=100&fit=crop&crop=face',
+      'ch3': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
     };
 
     // Character full names for bubble headers
     const characterNames = {
-      'cfa': 'Facilitator',
-      'cli': 'Librarian',
-      'car': 'Archivist',
-      'csc': 'Scholar',
-      'chi': 'Historian',
-      'ccu': 'Curator'
+      'cfa': 'Facilyn',
+      'cve': 'Vendor',
+      'cst': 'Stranger',
+      'cdr': 'Drawer',
+      'ch1': 'Headline1',
+      'ch2': 'Headline2',
+      'ch3': 'Headline3',
+      'cis': 'Info Sign',
+      'cds': 'Danger Sign',
+      'cws': 'Warning Sign',
+      'can': 'Announcement',
+      'crv': 'Robo Voice',
+      'crw': 'Robo Writing',
+      'chi': 'Hint'
     };
 
     for (const prefix in mapping) {
@@ -460,6 +524,13 @@
             <div class="chat-line me">
               <div class="bubble me">${content}</div>
               <span class="profile me">Me</span>
+            </div>`;
+        }
+        else if (cls === 'ch1' || cls === 'ch2' || cls === 'ch3') {
+          // Headlines – no profile, no name, newspaper style
+          return `
+            <div class="chat-line headline">
+              <div class="bubble ${cls}">${content}</div>
             </div>`;
         }
         else {
@@ -517,6 +588,17 @@
           infoElement.innerHTML = dendryUI.contentToHTML.convert(displayContent);
       }
   };
+
+  function enhanceReadMarker() {
+    var markers = document.querySelectorAll('#read-marker');
+    if (!markers || markers.length === 0) return;
+    markers.forEach(function(rm) {
+      if (rm.dataset && rm.dataset.enhanced === '1') return;
+      rm.setAttribute('role', 'separator');
+      rm.innerHTML = '';
+      rm.dataset.enhanced = '1';
+    });
+  }
   
   // This function runs on every new content display. Currently, all it does is update the sidebars.
   window.onDisplayContent = function() {
@@ -544,6 +626,8 @@
       if (newContent) {
         newContent.setAttribute('aria-live', 'polite');
       }
+
+      enhanceReadMarker();
   };
 
   // TODO: change this!
@@ -654,6 +738,10 @@
   
   // Expose showNotification globally for use in other parts of the game
   window.showNotification = showNotification;
+  
+  // Expose closeSidebars globally for sidebar close buttons
+  window.closeSidebars = closeSidebars;
+  
   window.populateSaveSlots = function(max_slots, max_auto_slots) {
       // this fills in the save information
       function createLoadListener(i) {
@@ -734,35 +822,11 @@
 
   window.onload = function() {
     window.dendryUI.loadSettings();
-    
-    // Initialize accessibility features
-    setTimeout(function() {
-      updateChoiceAccessibility();
-      
-      // Add ARIA landmarks
-      var chatMain = document.querySelector('.chat-main');
-      if (chatMain) {
-        chatMain.setAttribute('role', 'main');
-        chatMain.setAttribute('aria-label', 'Game Content');
-      }
-      
-      var progressSidebar = document.getElementById('progress-sidebar');
-      if (progressSidebar) {
-        progressSidebar.setAttribute('role', 'complementary');
-        progressSidebar.setAttribute('aria-label', 'Game Status');
-      }
-      
-      var contextSidebar = document.getElementById('context-sidebar');
-      if (contextSidebar) {
-        contextSidebar.setAttribute('role', 'complementary');
-        contextSidebar.setAttribute('aria-label', 'Game Context');
-      }
-      
-      var header = document.querySelector('.sticky-header');
-      if (header) {
-        header.setAttribute('role', 'banner');
-      }
-    }, 500);
+    initializeAccessibility();
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   };
 
 }());
