@@ -1,6 +1,7 @@
 ﻿title: Finalize my Quality of Life statement
 subtitle: Bringing It All Together
 unavailable-subtitle: Answer all three questions first
+order: 10
 on-arrival: qol-statement-complete = 1
 choose-if: qolp-about = 1 and qolp-be = 1 and qolp-accomplish = 1
 go-to: 19_frb_people

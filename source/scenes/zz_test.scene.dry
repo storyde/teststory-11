@@ -27,6 +27,8 @@ Should see brackets: \[ \]
 
 Code: `this should be monospaced.`
 
+Javascript: {! if (typeof window !== 'undefined') {window.location.reload();} !}
+
 Javascript: {! <script>dendryUI.dendryEngine.state.qualities['name'] = prompt('Enter your name:');</script> !}
 
 In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('arrival');">Scene Arrival</a>!}

@@ -1,6 +1,7 @@
 title: Finalize the weak link check
 subtitle: Next filter question
 unavailable-subtitle: Consider all three areas first
+order: 10
 choose-if: wl-type-s = 1 and wl-type-b = 1 and wl-type-f = 1
 new-page: true
 tags: weak_links
