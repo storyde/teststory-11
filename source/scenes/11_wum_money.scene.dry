@@ -37,6 +37,15 @@ tags: monetary_rcs
 
 Me: Savings and freelance income.
 
+@wumm_ind_student
+title: Some cash or savings
+view-if: part-of = "individual"
+on-arrival: wum-money = "Some cash or savings"
+go-to: 13_qol_intro
+tags: monetary_rcs
+
+Me: Some cash or savings.
+
 # Group
 
 @wumm_grp_commune

@@ -10,7 +10,7 @@ Facilyn: Which type of weak link would you like to examine first with your examp
 
 @social_weak_link
 title: Social Weak Link — Relationships
-on-arrival: wk-type-s = 1
+on-arrival: wl-type-s = 1
 tags: weak_links
 
 Me: Social Weak Link — Relationships.
@@ -23,7 +23,7 @@ Facilyn: "Could this action, due to prevailing attitudes or beliefs, create a we
 
 @biological_weak_link
 title: Biological Weak Link — Organisms
-on-arrival: wk-type-b = 1
+on-arrival: wl-type-b = 1
 tags: weak_links
 
 Me: Biological Weak Link — Organisms.
@@ -36,7 +36,7 @@ Facilyn: "Does this action address the weakest point in the life cycle of this o
 
 @financial_weak_link
 title: Financial Weak Link — Production
-on-arrival: wk-type-f = 1
+on-arrival: wl-type-f = 1
 tags: weak_links
 
 Me: Financial Weak Link — Production.

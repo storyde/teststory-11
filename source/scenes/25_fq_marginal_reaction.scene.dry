@@ -1,7 +1,7 @@
 title: Finalize the weak link check
 subtitle: Next filter question
 unavailable-subtitle: Consider all three areas first
-choose-if: wk-type-s = 1 and wk-type-b = 1 and wk-type-f = 1
+choose-if: wl-type-s = 1 and wl-type-b = 1 and wl-type-f = 1
 new-page: true
 tags: weak_links
 
