@@ -34,9 +34,12 @@ tags: final_choices
 
 Me: I'd like to start the framework from the beginning.
 
-{! 
-  // Reload
-  if (typeof window !== 'undefined') {
-    window.location.reload();
-  }
-!}
+Javascript: {! <script>
+if (
+  typeof window !== 'undefined' &&
+  window.location &&
+  typeof window.location.reload === 'function'
+) {
+  setTimeout(window.location.reload.bind(window.location), 100);
+}
+</script> !}

@@ -14,11 +14,11 @@ tags: root
 
 **This should be bolded.**
 
-Should see asterisk: \* \*
+Should see asterisk: \* 
 
-Should see slash-asterisk: \\\* \\\*
+Should see slash-asterisk: \\\* 
 
-Should see slash-slash-asterisk: \\\\* \\\\*
+Should see slash-slash-asterisk: \\\\* 
 
 Should see brackets: \[ \]
 
@@ -27,21 +27,17 @@ Should see brackets: \[ \]
 
 Code: `this should be monospaced.`
 
-Javascript: {! <script>
-if (
-  typeof window !== 'undefined' &&
-  window.location &&
-  typeof window.location.reload === 'function'
-) {
-  setTimeout(window.location.reload.bind(window.location), 100);
-}
-</script> !}
-
 In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('32_framework_outro');">Scene Outro</a>!}
 
-In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('credits');">Scene Credits</a>!}
+In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('5_wum_intro');">5_wum_intro</a>!}
 
-In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('root');">Scene Root</a>!}
+In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('13_qol_intro');">13_qol_intro</a>!}
+
+In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('18_frb_intro');">18_frb_intro</a>!}
+
+In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('21_holtext');">21_holtext</a>!}
+
+In-text link: {!<a href="#" onclick="dendryUI.dendryEngine.goToScene('30_fq_results');">30_fq_results</a>!}
 
 # TODO: hover-over
 

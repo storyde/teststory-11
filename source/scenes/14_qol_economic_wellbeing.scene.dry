@@ -5,13 +5,13 @@ Me: Ok
 
 Facilyn: Economic well-being is essential for meeting basic human needs — food, clothing, shelter, health, and security. But here's the key insight: focus on what money provides, not money itself.
 
-Facilyn: "Making a lot of money" is rarely as useful in a quality of life statement as naming what you gain from having money.
+Facilyn: "Making a lot of money" is rarely as useful in a Quality of Life Statement as naming what you gain from having money.
 
 Facilyn: What aspect of economic well-being matters most to you?
 
 - #economic_aspects
 
-@qolew_clarification
+@qolew_explanation
 title: I am not sure...
 go-to: 15_qol_relationships
 tags: economic_aspects
@@ -20,17 +20,17 @@ Me: I am not sure...
 
 Facilyn: Take your time. Remember, you're describing how you want your economic life to feel and function, not specific dollar amounts or possessions.
 
-Facilyn: Ask yourself what wealth would give you. Security? Freedom? The ability to help others? That underlying benefit is what belongs in your quality of life statement.
+Facilyn: Ask yourself what money would give you. Security? Freedom? The ability to help others? That underlying benefit is what belongs in your Quality of Life Statement.
 
 - #economic_aspects
 
 @qolew_basic_needs_fulfilled
-title: Nutritious food, resources for good clothes and a nice home
-on-arrival: qol-economic = "Nutritious food, resources for good clothes and a nice home"
+title: Nutritious food, warm clothing and a cosy home
+on-arrival: qol-economic = "Nutritious food, warm clothing and a cosy home"
 go-to: 15_qol_relationships
 tags: economic_aspects
 
-Me: Nutritious food, resources for good clothes and a nice home.
+Me: Nutritious food, warm clothing and a cosy home.
 
 Facilyn: Fundamental and wise. When basic needs like food, clothing, and shelter are reliably met, you're free to focus on growth and contribution rather than survival.
 

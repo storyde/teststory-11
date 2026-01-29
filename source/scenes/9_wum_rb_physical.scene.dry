@@ -3,25 +3,25 @@ subtitle: Major Physical Assets Available to You
 
 Facilyn: This framework requires everyone you just named to be involved in this conversation. So, this would normally be the moment you make sure everybody joins in. 
 
-[? if sector = "policymaking" : Facilyn: If your organisation is involved in governing and policymaking for your community, your city, for your country or even on an international level, you need to make sure to invite citizens from various backgrounds. Otherwise, you risk that your context, that we are about to create in a minute, reflects only the priorities of your organisation or of the institutions you collaborate with, instead of reflecting the interests of the people you govern. ?]
+[? if sector = "policymaking" : Facilyn: And if your organisation is involved in governing and policymaking, you would also make sure to invite citizens from various backgrounds. Otherwise, you risk that your holistic context we are about to create reflects only the priorities of your organisation or of the institutions you collaborate with, instead of reflecting the interests of the people you govern. ?]
 
 Facilyn: But given the approaching storm outside, we'll have to do that next time. 
 
-Facilyn: The next step is to identify your major physical resources from which you can generate revenue or derive support. These might include land, buildings, equipment, machinery, or other physical assets. These resources need not be owned, merely available to you.
-
-Facilyn: You are not after a detailed list of every asset you have, only a very general one. You may later decide to sell some of the assets you own anyway, particularly the liquid or movable ones.
+Facilyn: Now we identify your major physical resources from which you can generate revenue or derive support. These resources need to be available to you, but you don't need to own them.
 
 - #physical_rcs
 
-@rbph_clarification
-title: Why Identify Physical Resources?
+@rbph_explanation
+title: Why identify rhysical resources?
 tags: physical_rcs
 
-Me: Why Identify Physical Resources?
+Me: Why identify rhysical resources?
 
-Facilyn: Physical resources form the foundation of your operations. They represent your capacity to deliver services, produce goods, or create value. Understanding what physical assets are available helps you make better management decisions about how to use them effectively.
+Facilyn: Physical resources form the foundation of your operations. They represent your capacity to deliver services, produce goods, or create value. Understanding, what physical assets are available, helps you make better management decisions about how to use them effectively.
 
-A logistics robot rolls by, diligently cataloguing every object in sight—including a confused pigeon, now officially classified as "city’s air mail transport (unpaid intern)". 
+Facilyn: You may later decide to sell some of the assets you own, so you only need a general reminder of it.
+
+A logistics robot rolls by, diligently cataloguing every object in sight — including a confused pigeon, now officially classified as "city’s air mail transport (unpaid intern)". 
 
 - #physical_rcs
 
@@ -34,7 +34,7 @@ on-arrival: rb-physical = "Rural home, land, vehicle and tools"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: I own a home with some land, a vehicle, and various tools.
+Me: Rural home, land, vehicle and tools
 
 @rbph_ind_urban
 title: City apartment, bicycle and digital equipment
@@ -43,7 +43,7 @@ on-arrival: rb-physical = "City apartment, bicycle and digital equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: I live in a city apartment, use a bicycle, and rely on my digital equipment.
+Me: City apartment, bicycle and digital equipment
 
 @rbph_ind_nomad
 title: Mobile home and portable gear
@@ -52,7 +52,7 @@ on-arrival: rb-physical = "Mobile home and portable gear"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: My home is my vehicle, and I own only what fits inside it.
+Me: Mobile home and portable gear
 
 # Group
 
@@ -63,7 +63,7 @@ on-arrival: rb-physical = "Shared land, housing and community facilities"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: We share land, housing, and community facilities.
+Me: Shared land, housing and community facilities
 
 @rbph_grp_family_biz
 title: Family home, business premises and inventory
@@ -72,7 +72,7 @@ on-arrival: rb-physical = "Family home, business premises and inventory"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: We own a family home, along with our business premises and inventory.
+Me: Family home, business premises and inventory
 
 @rbph_grp_urban_col
 title: Shared apartment and creative workspace
@@ -81,7 +81,7 @@ on-arrival: rb-physical = "Shared apartment and creative workspace"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: We share a large apartment and a workspace for our projects.
+Me: Shared apartment and creative workspace
 
 # Agriculture
 
@@ -92,7 +92,7 @@ on-arrival: rb-physical = "Farmland and agricultural equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: My business includes farmland and the agricultural equipment needed to work it.
+Me: Farmland and agricultural equipment
 
 @rbph_agr_coop
 title: Cooperative facilities and grain storage
@@ -101,7 +101,7 @@ on-arrival: rb-physical = "Cooperative facilities and grain storage"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation has shared cooperative facilities and grain storage systems.
+Me: Cooperative facilities and grain storage
 
 @rbph_agr_ranch
 title: Ranch land, wildlife, livestock and facilities
@@ -110,7 +110,7 @@ on-arrival: rb-physical = "Ranch land, wildlife, livestock and facilities"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our physical resources are ranch land, wildlife, livestock and our facilities.
+Me: Ranch land, wildlife, livestock and facilities
 
 # Business
 
@@ -121,7 +121,7 @@ on-arrival: rb-physical = "Store buildings and retail equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: My business includes store buildings and all necessary retail equipment.
+Me: Store buildings and retail equipment
 
 @rbph_bus_insurance
 title: Office buildings and information technology
@@ -130,7 +130,7 @@ on-arrival: rb-physical = "Office buildings and information technology"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation relies on office buildings and information technology infrastructure.
+Me: Office buildings and information technology
 
 @rbph_bus_hospitality
 title: Hotel buildings and guest amenities
@@ -139,7 +139,7 @@ on-arrival: rb-physical = "Hotel buildings and guest amenities"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our physical resources are hotel buildings and guest amenities.
+Me: Hotel buildings and guest amenities
 
 @rbph_bus_company
 title: Office premises and operational assets
@@ -148,7 +148,7 @@ on-arrival: rb-physical = "Office premises and operational assets"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation has office premises and operational assets.
+Me: Office premises and operational assets
 
 # Culture
 
@@ -159,7 +159,7 @@ on-arrival: rb-physical = "Arts venues and cultural equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation involves arts venues and specific cultural equipment.
+Me: Arts venues and cultural equipment
 
 @rbph_cul_heritage
 title: Heritage buildings and preservation equipment
@@ -168,7 +168,7 @@ on-arrival: rb-physical = "Heritage buildings and preservation equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: The physical resources of our organisation are heritage buildings and preservation equipment.
+Me: Heritage buildings and preservation equipment
 
 @rbph_cul_newsroom
 title: Media facilities and broadcasting equipment
@@ -177,7 +177,7 @@ on-arrival: rb-physical = "Media facilities and broadcasting equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation has media facilities and broadcasting equipment.
+Me: Media facilities and broadcasting equipment
 
 # Education
 
@@ -188,7 +188,7 @@ on-arrival: rb-physical = "Kindergarten buildings and playground equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation includes kindergarten buildings and playground equipment.
+Me: Kindergarten buildings and playground equipment
 
 @rbph_edu_school
 title: School buildings and educational equipment
@@ -197,7 +197,7 @@ on-arrival: rb-physical = "School buildings and educational equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation covers school buildings and educational equipment.
+Me: School buildings and educational equipment
 
 @rbph_edu_university
 title: University campus and research facilities
@@ -206,7 +206,7 @@ on-arrival: rb-physical = "University campus and research facilities"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation encompasses a university campus and its research facilities.
+Me: University campus and research facilities
 
 # Industry
 
@@ -217,7 +217,7 @@ on-arrival: rb-physical = "Factory buildings and production machinery"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our physical resources are factory buildings and production machinery.
+Me: Factory buildings and production machinery
 
 @rbph_ind_construction
 title: Construction equipment and building materials
@@ -226,7 +226,7 @@ on-arrival: rb-physical = "Construction equipment and building materials"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: My business utilises construction equipment and building materials.
+Me: Construction equipment and building materials
 
 @rbph_ind_logging
 title: Logging equipment and processing facilities
@@ -235,7 +235,7 @@ on-arrival: rb-physical = "Logging equipment and processing facilities"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: My business involves logging equipment and processing facilities.
+Me: Logging equipment and processing facilities
 
 # Nonprofit
 
@@ -246,7 +246,7 @@ on-arrival: rb-physical = "Service facilities and community centres"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation runs service facilities and community centres.
+Me: Service facilities and community centres
 
 @rbph_nonprofit_advocacy
 title: Office facilities and campaign materials
@@ -255,7 +255,7 @@ on-arrival: rb-physical = "Office facilities and campaign materials"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation uses office facilities and campaign materials.
+Me: Office facilities and campaign materials
 
 @rbph_nonprofit_climate
 title: Research facilities and conservation equipment
@@ -264,7 +264,7 @@ on-arrival: rb-physical = "Research facilities and conservation equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation has access to research facilities and conservation equipment.
+Me: Research facilities and conservation equipment
 
 # Public service
 
@@ -275,7 +275,7 @@ on-arrival: rb-physical = "Public transport fleet and infrastructure"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation operates a public transport fleet and infrastructure.
+Me: Public transport fleet and infrastructure
 
 @rbph_pub_health
 title: Hospital buildings and medical equipment
@@ -284,7 +284,7 @@ on-arrival: rb-physical = "Hospital buildings and medical equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation owns hospital buildings and medical equipment.
+Me: Hospital buildings and medical equipment
 
 @rbph_pub_service
 title: Government buildings and public infrastructure
@@ -293,7 +293,7 @@ on-arrival: rb-physical = "Government buildings and public infrastructure"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our physical resources are government buildings and public infrastructure.
+Me: Government buildings and public infrastructure
 
 @rbph_pub_parks
 title: Protected lands and conservation equipment
@@ -302,7 +302,7 @@ on-arrival: rb-physical = "Protected lands and conservation equipment"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation stewards land and has conservation equipment.
+Me: Protected lands and conservation equipment
 
 # Policymaking
 
@@ -313,7 +313,7 @@ on-arrival: rb-physical = "Government buildings and national assets"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation owns government buildings and national assets.
+Me: Government buildings and national assets
 
 @rbph_pol_city
 title: City hall and municipal facilities
@@ -322,7 +322,7 @@ on-arrival: rb-physical = "City hall and municipal facilities"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation is based in city hall and municipal facilities.
+Me: City hall and municipal facilities
 
 @rbph_pol_intl
 title: Embassies and diplomatic facilities
@@ -331,4 +331,4 @@ on-arrival: rb-physical = "Embassies and diplomatic facilities"
 go-to: 10_wum_rb_human
 tags: physical_rcs
 
-Me: Our organisation operates through embassies and diplomatic facilities.
+Me: Embassies and diplomatic facilities

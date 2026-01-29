@@ -1,10 +1,18 @@
 title: Monetary Resources
 
-Facilyn: Now we identify the last category of resources you have: Money.
+Facilyn: The last category of resources you have is money.
  
 Facilyn: This is not about a deeper conversation about the meaning of money and wealth. Just list what is in your reach.
- 
-Facilyn: This includes cash, savings, a credit you could take if needed, or crowdsourcing, etc. And it would almost always include money that could be generated from the physical assets listed in your resource base. 
+
+- #monetary_rcs
+
+@wumm_explanation
+title: What does this include?
+tags: physical_rcs
+
+Me: What does this include?
+
+Facilyn: The monetary resources include cash, savings, a credit you could take if needed, or crowdsourcing, etc. And it would almost always include money that could be generated from the physical assets listed in your resource base. 
 
 - #monetary_rcs
 
