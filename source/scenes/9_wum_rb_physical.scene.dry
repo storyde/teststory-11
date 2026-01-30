@@ -1,11 +1,11 @@
 title: Physical Resources
 subtitle: Major Physical Assets Available to You
 
-Facilyn: This framework requires everyone you just named to be involved in this conversation. So, this would normally be the moment you make sure everybody joins in. 
+[? if part-of != "individual" : Facilyn: This framework requires everyone you just named to be involved in this conversation. So, this would normally be the moment you make sure everybody joins in. ?]
 
 [? if sector = "policymaking" : Facilyn: And if your organisation is involved in governing and policymaking, you would also make sure to invite citizens from various backgrounds. Otherwise, you risk that your holistic context we are about to create reflects only the priorities of your organisation or of the institutions you collaborate with, instead of reflecting the interests of the people you govern. ?]
 
-Facilyn: But given the approaching storm outside, we'll have to do that next time. 
+[? if part-of != "individual" : Facilyn: But given the approaching storm outside, we'll have to do that next time. ?]
 
 Facilyn: Now we identify your major physical resources from which you can generate revenue or derive support. These resources need to be available to you, but you don't need to own them.
 
@@ -13,6 +13,7 @@ Facilyn: Now we identify your major physical resources from which you can genera
 
 @rbph_explanation
 title: Why identify rhysical resources?
+max-visits: 1
 tags: physical_rcs
 
 Me: Why identify rhysical resources?
